@@ -1,4 +1,7 @@
-# Primitive Data Types in Clarity
+---
+title: Primitive Data Types
+layout: default
+---
 
 ## Overview
 
@@ -20,7 +23,7 @@ Unsigned integers represent non-negative whole numbers from 0 to 2^128 - 1.
 
 **Syntax:** Prefix with `u`
 
-```clarity
+```lisp
 u0          ;; Zero
 u42         ;; Forty-two
 u1000000    ;; One million
@@ -28,7 +31,7 @@ u1000000    ;; One million
 
 **Arithmetic Operations:**
 
-```clarity
+```lisp
 (+ u10 u5)        ;; Returns u15
 (- u20 u8)        ;; Returns u12
 (* u3 u7)         ;; Returns u21
@@ -39,7 +42,7 @@ u1000000    ;; One million
 
 **Comparison Operations:**
 
-```clarity
+```lisp
 (> u10 u5)        ;; Returns true
 (< u3 u8)         ;; Returns true
 (>= u10 u10)      ;; Returns true
@@ -60,7 +63,7 @@ Signed integers represent both positive and negative whole numbers from -2^127 t
 
 **Syntax:** No prefix (just the number, with optional `-` for negative)
 
-```clarity
+```lisp
 0           ;; Zero
 42          ;; Positive forty-two
 -100        ;; Negative one hundred
@@ -69,7 +72,7 @@ Signed integers represent both positive and negative whole numbers from -2^127 t
 
 **Arithmetic Operations:**
 
-```clarity
+```lisp
 (+ 10 5)          ;; Returns 15
 (- 20 30)         ;; Returns -10
 (* -3 7)          ;; Returns -21
@@ -79,7 +82,7 @@ Signed integers represent both positive and negative whole numbers from -2^127 t
 
 **Important:** You cannot mix signed and unsigned integers!
 
-```clarity
+```lisp
 (+ 2 u3)          ;; ERROR: Type mismatch!
 (* u5 10)         ;; ERROR: Type mismatch!
 ```
@@ -93,14 +96,14 @@ Signed integers represent both positive and negative whole numbers from -2^127 t
 
 Booleans represent truth values: `true` or `false`.
 
-```clarity
+```lisp
 true
 false
 ```
 
 **Logical Operations:**
 
-```clarity
+```lisp
 (not true)                    ;; Returns false
 (not false)                   ;; Returns true
 
@@ -115,7 +118,7 @@ false
 
 **Comparison Results:**
 
-```clarity
+```lisp
 (is-eq u5 u5)                 ;; Returns true
 (> u10 u5)                    ;; Returns true
 (< 3 8)                       ;; Returns true
@@ -133,26 +136,26 @@ Principals represent Stacks addresses - either standard principals (users) or co
 
 **Standard Principal:**
 
-```clarity
+```lisp
 'ST1HTBVD3JG9C05J7HBJTHGR0GGW7KXW28M5JS8QE
 ```
 
 **Contract Principal:**
 
-```clarity
+```lisp
 'ST1HTBVD3JG9C05J7HBJTHGR0GGW7KXW28M5JS8QE.my-contract
 ```
 
 **Special Keywords:**
 
-```clarity
+```lisp
 tx-sender              ;; The principal that sent the transaction
 contract-caller        ;; The principal that called this function
 ```
 
 **Working with Principals:**
 
-```clarity
+```lisp
 ;; Check STX balance
 (stx-get-balance 'ST1HTBVD3JG9C05J7HBJTHGR0GGW7KXW28M5JS8QE)
 
@@ -175,20 +178,20 @@ ASCII strings contain basic Latin characters with a fixed maximum length.
 
 **Syntax:**
 
-```clarity
+```lisp
 "Hello World"
 "This is an ASCII string"
 ```
 
 **Type Declaration:**
 
-```clarity
+```lisp
 (string-ascii 50)     ;; ASCII string with max length 50
 ```
 
 **String Operations:**
 
-```clarity
+```lisp
 ;; Concatenation
 (concat "Hello" " World")                    ;; Returns "Hello World"
 (concat "Hello, " (concat "Bob" "!"))        ;; Returns "Hello, Bob!"
@@ -212,7 +215,7 @@ UTF-8 strings support international characters and special symbols.
 
 **Syntax:** Prefix with `u`
 
-```clarity
+```lisp
 u"Hello World"
 u"Café"
 u"Buenos días"
@@ -221,13 +224,13 @@ u"Привет"
 
 **Type Declaration:**
 
-```clarity
+```lisp
 (string-utf8 100)     ;; UTF-8 string with max length 100
 ```
 
 **String Operations:**
 
-```clarity
+```lisp
 ;; Concatenation
 (concat u"Hello" u" 世界")
 
@@ -247,7 +250,7 @@ Buffers represent raw byte sequences with a fixed maximum length.
 
 **Syntax:** Prefix with `0x` followed by hexadecimal
 
-```clarity
+```lisp
 0x68656c6c6f        ;; "hello" in hex
 0x00                ;; Single zero byte
 0x1234567890        ;; Arbitrary bytes
@@ -255,13 +258,13 @@ Buffers represent raw byte sequences with a fixed maximum length.
 
 **Type Declaration:**
 
-```clarity
+```lisp
 (buff 32)           ;; Buffer with max length 32 bytes
 ```
 
 **Buffer Operations:**
 
-```clarity
+```lisp
 ;; Length in bytes
 (len 0x68656c6c6f)                          ;; Returns u5
 
@@ -286,7 +289,7 @@ While not primitive, these types build on primitives:
 
 Represents success or failure of an operation.
 
-```clarity
+```lisp
 (ok u100)                    ;; Success with value u100
 (err u404)                   ;; Error with code u404
 (ok true)                    ;; Success with boolean
@@ -297,7 +300,7 @@ Represents success or failure of an operation.
 
 Represents a value that may or may not exist.
 
-```clarity
+```lisp
 (some u42)                   ;; Contains value u42
 (some "Hello")               ;; Contains string
 (some tx-sender)             ;; Contains principal
@@ -308,7 +311,7 @@ none                         ;; No value
 
 ### Valid Type Usage
 
-```clarity
+```lisp
 ;; Same types - OK
 (+ u10 u20)              ;; Returns u30
 (+ 10 20)                ;; Returns 30
@@ -317,7 +320,7 @@ none                         ;; No value
 
 ### Invalid Type Usage (Will Error)
 
-```clarity
+```lisp
 ;; Mixing signed and unsigned - ERROR
 (+ u10 20)               ;; ERROR: Type mismatch
 
@@ -344,13 +347,13 @@ none                         ;; No value
    - This prevents unbounded growth
 
 4. **Use Constants for Magic Numbers**
-   ```clarity
+   ```lisp
    (define-constant MAX-SUPPLY u1000000)  ;; Good
    ;; Instead of using u1000000 directly   ;; Bad
    ```
 
 5. **Type Annotations in Function Signatures**
-   ```clarity
+   ```lisp
    (define-public (transfer (amount uint) (recipient principal))
        ;; Implementation
    )
@@ -360,7 +363,7 @@ none                         ;; No value
 
 ### Safe Arithmetic
 
-```clarity
+```lisp
 ;; Check for overflow before addition
 (define-read-only (safe-add (a uint) (b uint))
     (let ((result (+ a b)))
@@ -372,7 +375,7 @@ none                         ;; No value
 
 ### Type Conversion
 
-```clarity
+```lisp
 ;; Convert string to buffer
 (to-consensus-buff? "hello")
 
@@ -382,7 +385,7 @@ none                         ;; No value
 
 ### Working with Optionals
 
-```clarity
+```lisp
 ;; Default value for missing data
 (define-read-only (get-balance-safe (account principal))
     (default-to u0 (map-get? balances account))

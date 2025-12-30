@@ -1,4 +1,7 @@
-# Hello World in Clarity
+---
+title: Hello World
+layout: default
+---
 
 ## Overview
 
@@ -49,7 +52,7 @@ This creates:
 
 Open `contracts/hello-world.clar` and add the following code:
 
-```clarity
+```lisp
 ;; Hello World Smart Contract
 ;; A simple contract demonstrating basic Clarity syntax
 
@@ -87,7 +90,7 @@ Clarity has three types of functions:
 
 #### 1. Public Functions (`define-public`)
 
-```clarity
+```lisp
 (define-public (hello-world)
     (ok "Hello World!")
 )
@@ -100,7 +103,7 @@ Clarity has three types of functions:
 
 #### 2. Read-Only Functions (`define-read-only`)
 
-```clarity
+```lisp
 (define-read-only (get-greeting)
     "Hello from the Stacks blockchain!"
 )
@@ -113,7 +116,7 @@ Clarity has three types of functions:
 
 #### 3. Private Functions (`define-private`)
 
-```clarity
+```lisp
 (define-private (create-greeting (prefix (string-ascii 20)) (name (string-ascii 50)))
     (concat prefix (concat " " name))
 )
@@ -147,7 +150,7 @@ clarinet console
 
 Once in the console, try these commands:
 
-```clarity
+```lisp
 ;; Call the hello-world function
 (contract-call? .hello-world hello-world)
 ;; Returns: (ok "Hello World!")
@@ -257,7 +260,7 @@ npm test
 
 Clarity uses prefix notation where the operator comes first:
 
-```clarity
+```lisp
 (+ 4 5)           ;; Returns 9
 (* 3 (+ 2 1))     ;; Returns 9 (3 * (2 + 1))
 (concat "Hello" " World")  ;; Returns "Hello World"

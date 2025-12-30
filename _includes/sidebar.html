@@ -1,0 +1,27 @@
+<div class="sidebar-section">
+  <h3 class="sidebar-title">Basic</h3>
+  <nav class="sidebar-nav">
+    <ul>
+      <li>
+        <a href="{{ site.baseurl }}/hello-world" {% if page.title == "Hello World" %}class="active"{% endif %}>
+          Hello World
+        </a>
+      </li>
+      <li>
+        <a href="{{ site.baseurl }}/primitive-data-types" {% if page.title == "Primitive Data Types" %}class="active"{% endif %}>
+          Primitive Data Types
+        </a>
+      </li>
+      <li>
+        <a href="{{ site.baseurl }}/variables" {% if page.title == "Variables" %}class="active"{% endif %}>
+          Variables
+        </a>
+      </li>
+      <li>
+        <a href="{{ site.baseurl }}/constants" {% if page.title == "Constants" %}class="active"{% endif %}>
+          Constants
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

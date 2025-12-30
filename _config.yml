@@ -1,0 +1,23 @@
+title: Stacks by Example
+description: Learn Clarity smart contract development with simple, practical examples
+baseurl: /stacks-by-example
+# url: https://quantum3-labs.github.io
+url: https://huygon764.github.io
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
+# Exclude files from build
+exclude:
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock

@@ -1,4 +1,7 @@
-# Variables and Maps in Clarity
+---
+title: Variables
+layout: default
+---
 
 ## Overview
 
@@ -16,13 +19,13 @@ Data variables are mutable values that can be read and updated during contract e
 
 ### Basic Syntax
 
-```clarity
+```lisp
 (define-data-var var-name var-type initial-value)
 ```
 
 ### Defining Variables
 
-```clarity
+```lisp
 ;; Unsigned integer variable
 (define-data-var counter uint u0)
 
@@ -54,7 +57,7 @@ Data variables are mutable values that can be read and updated during contract e
 
 Use `var-get` to read the current value of a variable:
 
-```clarity
+```lisp
 (define-data-var counter uint u0)
 
 ;; Read the counter value
@@ -70,7 +73,7 @@ Use `var-get` to read the current value of a variable:
 
 Use `var-set` to update a variable's value:
 
-```clarity
+```lisp
 (define-data-var counter uint u0)
 
 ;; Set the counter to a new value
@@ -82,7 +85,7 @@ Use `var-set` to update a variable's value:
 
 ### Complete Variable Example
 
-```clarity
+```lisp
 (define-data-var total-supply uint u0)
 (define-data-var is-active bool true)
 
@@ -113,7 +116,7 @@ Use `var-set` to update a variable's value:
 
 Variables can be used in `let` expressions for temporary local values:
 
-```clarity
+```lisp
 (define-public (calculate-total (quantity uint) (price uint))
     (let
         (
@@ -140,13 +143,13 @@ Maps are key-value storage structures that allow you to store multiple entries i
 
 ### Basic Syntax
 
-```clarity
+```lisp
 (define-map map-name key-type value-type)
 ```
 
 ### Simple Maps
 
-```clarity
+```lisp
 ;; Map principal to uint (balances)
 (define-map balances principal uint)
 
@@ -159,7 +162,7 @@ Maps are key-value storage structures that allow you to store multiple entries i
 
 ### Maps with Tuple Keys
 
-```clarity
+```lisp
 ;; Map with composite key
 (define-map allowances
     {owner: principal, spender: principal}
@@ -179,7 +182,7 @@ Maps are key-value storage structures that allow you to store multiple entries i
 
 `map-set` inserts or updates an entry (overwrites if exists):
 
-```clarity
+```lisp
 (define-map balances principal uint)
 
 ;; Set a balance
@@ -193,7 +196,7 @@ Maps are key-value storage structures that allow you to store multiple entries i
 
 `map-insert` only inserts if the key doesn't exist (returns true/false):
 
-```clarity
+```lisp
 (define-map scores principal uint)
 
 ;; Insert succeeds (returns true)
@@ -210,7 +213,7 @@ Maps are key-value storage structures that allow you to store multiple entries i
 
 `map-get?` returns an optional - `(some value)` if exists, `none` if not:
 
-```clarity
+```lisp
 (define-map balances principal uint)
 
 (map-set balances tx-sender u500)
@@ -226,7 +229,7 @@ Maps are key-value storage structures that allow you to store multiple entries i
 
 Use `default-to` to provide a fallback for missing entries:
 
-```clarity
+```lisp
 (define-read-only (get-balance (account principal))
     (default-to u0 (map-get? balances account))
 )
@@ -237,7 +240,7 @@ Use `default-to` to provide a fallback for missing entries:
 
 #### Deleting Entries with `map-delete`
 
-```clarity
+```lisp
 (define-map temp-data principal uint)
 
 ;; Add data
@@ -252,7 +255,7 @@ Use `default-to` to provide a fallback for missing entries:
 
 ### Complete Map Example
 
-```clarity
+```lisp
 ;; Token balance system
 (define-map balances principal uint)
 (define-data-var total-supply uint u0)
@@ -299,7 +302,7 @@ Use `default-to` to provide a fallback for missing entries:
 
 ### Working with Tuple Values
 
-```clarity
+```lisp
 (define-map user-profiles
     principal
     {
@@ -343,7 +346,7 @@ Use `default-to` to provide a fallback for missing entries:
 
 ### 1. Choose the Right Storage Type
 
-```clarity
+```lisp
 ;; Use constants for immutable values (see constants.md)
 (define-constant MAX-SUPPLY u1000000)
 
@@ -360,7 +363,7 @@ Use `default-to` to provide a fallback for missing entries:
 
 ### 2. Provide Default Values for Maps
 
-```clarity
+```lisp
 ;; Always handle missing map entries
 (define-read-only (get-balance (account principal))
     (default-to u0 (map-get? balances account))
@@ -369,7 +372,7 @@ Use `default-to` to provide a fallback for missing entries:
 
 ### 3. Use Meaningful Names
 
-```clarity
+```lisp
 ;; Good
 (define-constant ERR-NOT-AUTHORIZED (err u100))
 (define-data-var total-supply uint u0)
@@ -383,7 +386,7 @@ Use `default-to` to provide a fallback for missing entries:
 
 ### 4. Group Related Storage
 
-```clarity
+```lisp
 ;; Group constants by purpose
 ;; Error codes
 (define-constant ERR-NOT-FOUND (err u100))
@@ -400,7 +403,7 @@ Use `default-to` to provide a fallback for missing entries:
 
 ### 5. Use Tuples for Complex Data
 
-```clarity
+```lisp
 ;; Instead of multiple maps
 (define-map user-profiles
     principal
@@ -415,7 +418,7 @@ Use `default-to` to provide a fallback for missing entries:
 
 ### 6. Safe Updates
 
-```clarity
+```lisp
 ;; Always check before updating
 (define-public (safe-update (amount uint))
     (let
@@ -431,7 +434,7 @@ Use `default-to` to provide a fallback for missing entries:
 
 ### Access Control with Constants
 
-```clarity
+```lisp
 (define-constant CONTRACT-OWNER tx-sender)
 
 (define-public (admin-function)
@@ -445,7 +448,7 @@ Use `default-to` to provide a fallback for missing entries:
 
 ### Counter Pattern with Variables
 
-```clarity
+```lisp
 (define-data-var next-id uint u0)
 
 (define-public (generate-id)
@@ -459,7 +462,7 @@ Use `default-to` to provide a fallback for missing entries:
 
 ### Balance Tracking with Maps
 
-```clarity
+```lisp
 (define-map balances principal uint)
 
 (define-public (transfer (amount uint) (recipient principal))

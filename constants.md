@@ -1,4 +1,7 @@
-# Constants in Clarity
+---
+title: Constants
+layout: default
+---
 
 ## Overview
 
@@ -14,7 +17,7 @@ Constants in Clarity are:
 
 ## Basic Syntax
 
-```clarity
+```lisp
 (define-constant constant-name expression)
 ```
 
@@ -24,7 +27,7 @@ The expression is evaluated at analysis time and the result is stored permanentl
 
 ### Numeric Constants
 
-```clarity
+```lisp
 ;; Unsigned integers
 (define-constant MAX-SUPPLY u1000000)
 (define-constant MIN-PURCHASE u1)
@@ -37,7 +40,7 @@ The expression is evaluated at analysis time and the result is stored permanentl
 
 ### String Constants
 
-```clarity
+```lisp
 ;; ASCII strings
 (define-constant CONTRACT-NAME "MyAwesomeContract")
 (define-constant TOKEN-SYMBOL "MAT")
@@ -50,7 +53,7 @@ The expression is evaluated at analysis time and the result is stored permanentl
 
 ### Boolean Constants
 
-```clarity
+```lisp
 (define-constant ENABLED true)
 (define-constant REQUIRE-VERIFICATION false)
 (define-constant ALLOW-TRANSFERS true)
@@ -58,7 +61,7 @@ The expression is evaluated at analysis time and the result is stored permanentl
 
 ### Principal Constants
 
-```clarity
+```lisp
 ;; Contract owner (set to deployer)
 (define-constant CONTRACT-OWNER tx-sender)
 
@@ -71,7 +74,7 @@ The expression is evaluated at analysis time and the result is stored permanentl
 
 ### Buffer Constants
 
-```clarity
+```lisp
 ;; Hash values
 (define-constant GENESIS-HASH 0x0000000000000000000000000000000000000000000000000000000000000000)
 
@@ -83,7 +86,7 @@ The expression is evaluated at analysis time and the result is stored permanentl
 
 Constants can reference other constants that were defined earlier:
 
-```clarity
+```lisp
 ;; Base values
 (define-constant BASE-FEE u100)
 (define-constant MULTIPLIER u3)
@@ -108,7 +111,7 @@ One of the most common uses of constants is defining error codes:
 
 ### Basic Error Codes
 
-```clarity
+```lisp
 (define-constant ERR-NOT-AUTHORIZED (err u100))
 (define-constant ERR-INVALID-AMOUNT (err u101))
 (define-constant ERR-INSUFFICIENT-BALANCE (err u102))
@@ -120,7 +123,7 @@ One of the most common uses of constants is defining error codes:
 
 Group error codes by category for better organization:
 
-```clarity
+```lisp
 ;; Authorization errors (100-199)
 (define-constant ERR-OWNER-ONLY (err u100))
 (define-constant ERR-NOT-AUTHORIZED (err u101))
@@ -146,7 +149,7 @@ Group error codes by category for better organization:
 
 ### Using Error Constants
 
-```clarity
+```lisp
 (define-constant CONTRACT-OWNER tx-sender)
 (define-constant ERR-NOT-AUTHORIZED (err u100))
 (define-constant ERR-INVALID-AMOUNT (err u200))
@@ -169,7 +172,7 @@ Group error codes by category for better organization:
 
 ### Access Control Pattern
 
-```clarity
+```lisp
 ;; Store contract deployer
 (define-constant CONTRACT-OWNER tx-sender)
 
@@ -196,7 +199,7 @@ Group error codes by category for better organization:
 
 ### Configuration Pattern
 
-```clarity
+```lisp
 ;; Token configuration
 (define-constant TOKEN-NAME "MyToken")
 (define-constant TOKEN-SYMBOL "MTK")
@@ -216,7 +219,7 @@ Group error codes by category for better organization:
 
 ### Contract References Pattern
 
-```clarity
+```lisp
 ;; Reference other contracts
 (define-constant TOKEN-CONTRACT 'ST1HTBVD3JG9C05J7HBJTHGR0GGW7KXW28M5JS8QE.my-token)
 (define-constant ORACLE-CONTRACT 'ST1HTBVD3JG9C05J7HBJTHGR0GGW7KXW28M5JS8QE.price-oracle)
@@ -225,7 +228,7 @@ Group error codes by category for better organization:
 
 ### Time-based Constants
 
-```clarity
+```lisp
 ;; Block heights and durations
 (define-constant BLOCKS-PER-DAY u144)           ;; ~10 min blocks
 (define-constant BLOCKS-PER-WEEK u1008)         ;; 144 * 7
@@ -242,7 +245,7 @@ Group error codes by category for better organization:
 
 By convention, constants use UPPERCASE with hyphens:
 
-```clarity
+```lisp
 ;; Good
 (define-constant MAX-SUPPLY u1000000)
 (define-constant CONTRACT-OWNER tx-sender)
@@ -257,7 +260,7 @@ By convention, constants use UPPERCASE with hyphens:
 
 Always store the contract deployer for access control:
 
-```clarity
+```lisp
 (define-constant CONTRACT-OWNER tx-sender)
 
 ;; Use in functions
@@ -274,7 +277,7 @@ Always store the contract deployer for access control:
 
 Make constants self-documenting:
 
-```clarity
+```lisp
 ;; Good - clear purpose
 (define-constant MAX-TOKENS-PER-WALLET u100)
 (define-constant LISTING-FEE-PERCENTAGE u5)
@@ -290,7 +293,7 @@ Make constants self-documenting:
 
 Organize constants by category with comments:
 
-```clarity
+```lisp
 ;; ===== CONTRACT CONFIGURATION =====
 (define-constant CONTRACT-OWNER tx-sender)
 (define-constant CONTRACT-NAME "MyContract")
@@ -317,7 +320,7 @@ Organize constants by category with comments:
 
 Always use named constants instead of inline error values:
 
-```clarity
+```lisp
 ;; Good
 (define-constant ERR-NOT-FOUND (err u404))
 (asserts! (is-some item) ERR-NOT-FOUND)
@@ -330,7 +333,7 @@ Always use named constants instead of inline error values:
 
 Add comments to explain non-obvious values:
 
-```clarity
+```lisp
 ;; Fee is 2.5% represented in basis points (1% = 100bp)
 (define-constant MARKETPLACE-FEE u250)
 
@@ -345,7 +348,7 @@ Add comments to explain non-obvious values:
 
 Here's a complete contract demonstrating proper constant usage:
 
-```clarity
+```lisp
 ;; NFT Marketplace Contract
 ;; Demonstrates best practices for constants
 
@@ -424,7 +427,7 @@ Here's a complete contract demonstrating proper constant usage:
 | **Syntax** | `define-constant` | `define-data-var` |
 | **Access** | Direct reference | `var-get` / `var-set` |
 
-```clarity
+```lisp
 ;; Constant - never changes
 (define-constant MAX-SUPPLY u1000000)
 
@@ -436,7 +439,7 @@ Here's a complete contract demonstrating proper constant usage:
 
 ### 1. Using Variables for Config
 
-```clarity
+```lisp
 ;; Bad - wastes gas, can be changed
 (define-data-var max-supply uint u1000000)
 
@@ -446,7 +449,7 @@ Here's a complete contract demonstrating proper constant usage:
 
 ### 2. Magic Numbers
 
-```clarity
+```lisp
 ;; Bad - unclear meaning
 (asserts! (< amount u1000000) (err u1))
 
@@ -457,7 +460,7 @@ Here's a complete contract demonstrating proper constant usage:
 
 ### 3. Hardcoded Principals
 
-```clarity
+```lisp
 ;; Bad - hard to update, unclear
 (asserts! (is-eq tx-sender 'ST1HTBVD3JG9C05J7HBJTHGR0GGW7KXW28M5JS8QE) (err u1))
 
@@ -468,7 +471,7 @@ Here's a complete contract demonstrating proper constant usage:
 
 ### 4. Inline Error Codes
 
-```clarity
+```lisp
 ;; Bad - magic numbers, hard to maintain
 (if (< balance amount) (err u102) (ok true))
 

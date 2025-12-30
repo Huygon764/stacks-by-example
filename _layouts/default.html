@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    {% include head.html %}
+  </head>
+  <body>
+    <aside class="sidebar" id="sidebar">{% include sidebar.html %}</aside>
+
+    <div class="main-wrapper">
+      <header class="top-header">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <a href="{{ site.baseurl }}/" class="header-logo">
+          <span class="logo-icon">⚡</span>
+          <span>Stacks by Example</span>
+        </a>
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle dark mode"
+        >
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+        </button>
+      </header>
+
+      <main class="content">
+        <article class="article">
+          {% if page.title and page.title != "Home" %}
+          <h1 class="article-title">{{ page.title }}</h1>
+          {% endif %} {{ content }}
+        </article>
+      </main>
+    </div>
+
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-lisp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-toml.min.js"></script>
+
+    <!-- Main script -->
+    <script src="{{ site.baseurl }}/assets/js/main.js"></script>
+  </body>
+</html>
